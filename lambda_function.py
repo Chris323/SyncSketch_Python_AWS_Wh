@@ -1,16 +1,16 @@
 import json
 import urllib3
+import os
 
 def lambda_handler(event, context):
-    # TODO implement
-    whurl = ""
+    # FOUND IN .ENV
+    whurl = "SLACK_WEBHOOK"
     message = {"text": f"The approval status of {event['item_name']} in {event['review']['name']} has changed to \"{event['new_status']}\""}
     send_webhook(whurl, message)
 
     #AKA reverse api
 def send_webhook(webhook_url, payload):
-    text = "Hello Hammer Creative, from AWS Lambda"
-    #payload = {"text": text}
+    #text = "Hello Hammer Creative, from AWS Lambda"
     
     # Create an HTTP pool manager
     http = urllib3.PoolManager()
