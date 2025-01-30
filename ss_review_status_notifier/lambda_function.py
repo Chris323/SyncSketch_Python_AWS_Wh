@@ -5,7 +5,7 @@ import os
 def lambda_handler(event, context):
     # FOUND IN .ENV
     whurl = "SLACK_WEBHOOK"
-    message = {"text": f"The approval status of {event['item_name']} in {event['review']['name']} has changed to \"{event['new_status']}\""}
+    message = {"text": f"The approval status of \"{event['item_name'].upper()}\" in \"{event['review']['name'].upper()}\" has changed to \"{event['new_status'].capitalize()}\""}
     send_webhook(whurl, message)
 
     #AKA reverse api
