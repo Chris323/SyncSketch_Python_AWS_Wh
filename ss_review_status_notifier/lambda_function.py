@@ -4,7 +4,7 @@ import os
 
 def lambda_handler(event, context):
     # FOUND IN .ENV
-    whurl = match_webhook(event[name])
+    whurl = match_webhook(event["name"])
     message = {"text": f"The approval status of \"{event['item_name'].upper()}\" in \"{event['review']['name'].upper()}\" has changed to \"{event['new_status'].capitalize()}\""}
     send_webhook(whurl, message)
 
