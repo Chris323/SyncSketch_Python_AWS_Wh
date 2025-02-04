@@ -4,7 +4,8 @@ import os
 
 def lambda_handler(event, context):
     # FOUND IN .ENV
-    whurl = match_webhook(event["name"])
+    whurl = os.getenv("SLACK_WEBHOOK")
+    #whurl = match_webhook(event["name"]) #TODO
     message = {"text": f"The approval status of \"{event['item_name'].upper()}\" in \"{event['review']['name'].upper()}\" has changed to \"{event['new_status'].capitalize()}\""}
     send_webhook(whurl, message)
 
@@ -33,6 +34,7 @@ def send_webhook(webhook_url, payload):
         # Log the error if the request fails
         return {"statusCode": 500, "body": f"Error: {str(e)}"}
 
+#TODO
 def match_webhook(input):
     match input:
         case "project1":
@@ -51,3 +53,5 @@ def match_webhook(input):
             return "SlackWhurl7"
         case default:
             return "SlackWhurl"
+        
+        
