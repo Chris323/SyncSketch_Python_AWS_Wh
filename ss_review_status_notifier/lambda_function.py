@@ -1,12 +1,20 @@
 import json
 import urllib3
 import os
+import logging
 
 def lambda_handler(event, context):
-    # FOUND IN .ENV
-    whurl = os.getenv("SLACK_WEBHOOK")
-    #whurl = match_webhook(event["name"]) #TODO
-    message = {"text": f"The approval status of \"{event['item_name'].upper()}\" in \"{event['review']['name'].upper()}\" has changed to \"{event['new_status'].capitalize()}\""}
+    #whurl = os.getenv('SLACK_WEBHOOK') 
+    #or
+    #os.environ['SLACK_WEBHOOK']
+    message = ""
+    whurl = match_webhook(event["project"]["name"])
+    logging_handler(event)
+    if event["new_status"] == "":
+        message = {"text": f"The approval status of \"{event['item_name'].upper()}\" in \"{event['review']['name'].upper()}\" has changed to \"NO STATUS\""}
+    else:
+        message = {"text": f"The approval status of \"{event['item_name'].upper()}\" in \"{event['review']['name'].upper()}\" has changed to \"{event['new_status'].capitalize()}\""}
+    #message = {"text": f"{event}"} #uncomment to output entire event to slack
     send_webhook(whurl, message)
 
     #AKA reverse api
@@ -38,20 +46,24 @@ def send_webhook(webhook_url, payload):
 def match_webhook(input):
     match input:
         case "project1":
-            return "SlackWhurl1"
+            return "SLACK_WEBHOOK1"
         case "project2":
-            return "SlackWhurl2"
+            return "SLACK_WEBHOOK2"
         case "project3":
-            return "SlackWhurl3"
+            return "SLACK_WEBHOOK3"
         case "project4":
-            return "SlackWhurl4"
+            return "SLACK_WEBHOOK4"
         case "project1":
-            return "SlackWhurl5"
+            return "SLACK_WEBHOOK5"
         case "project2":
-            return "SlackWhurl6"
+            return "SLACK_WEBHOOK6"
         case "project1":
-            return "SlackWhurl7"
+            return "SLACK_WEBHOOK7"
         case default:
-            return "SlackWhurl"
-        
-        
+            return os.getenv('SLACK_WEBHOOK')
+
+def logging_handler(event):
+    logger = logging.getLogger()
+    logger.setLevel("INFO")
+    logger.info(event)     
+           
