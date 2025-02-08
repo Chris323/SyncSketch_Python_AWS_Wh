@@ -7,14 +7,14 @@ def lambda_handler(event, context):
     #whurl = os.getenv('SLACK_WEBHOOK') 
     #or
     #os.environ['SLACK_WEBHOOK']
-    message = ""
-    whurl = match_webhook(event["project"]["name"])
     logging_handler(event)
+
+    whurl = match_webhook(event["project"]["name"])
+    #message = {"text": f"{event}"} #uncomment to output entire event to slack
+    message = {"text": f"The approval status of \"{event['item_name'].upper()}\" in \"{event['review']['name'].upper()}\" has changed to \"{event['new_status'].capitalize()}\""}
     if event["new_status"] == "":
         message = {"text": f"The approval status of \"{event['item_name'].upper()}\" in \"{event['review']['name'].upper()}\" has changed to \"NO STATUS\""}
-    else:
-        message = {"text": f"The approval status of \"{event['item_name'].upper()}\" in \"{event['review']['name'].upper()}\" has changed to \"{event['new_status'].capitalize()}\""}
-    #message = {"text": f"{event}"} #uncomment to output entire event to slack
+
     send_webhook(whurl, message)
 
     #AKA reverse api
