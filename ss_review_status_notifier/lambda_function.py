@@ -42,25 +42,28 @@ def send_webhook(webhook_url, payload):
         # Log the error if the request fails
         return {"statusCode": 500, "body": f"Error: {str(e)}"}
 
-#TODO
+#Channel webhook selection
 def match_webhook(input):
-    match input:
-        case "project1":
-            return "SLACK_WEBHOOK1"
-        case "project2":
-            return "SLACK_WEBHOOK2"
-        case "project3":
-            return "SLACK_WEBHOOK3"
-        case "project4":
-            return "SLACK_WEBHOOK4"
-        case "project1":
-            return "SLACK_WEBHOOK5"
-        case "project2":
-            return "SLACK_WEBHOOK6"
-        case "project1":
-            return "SLACK_WEBHOOK7"
-        case default:
-            return os.getenv('SLACK_WEBHOOK')
+    if "mtg -" in input.lower():
+        return os.getenv('SLACK_WEBHOOK_MTG')
+    elif "lor-" in input.lower():
+        return os.getenv('SLACK_WEBHOOK_LOR')
+    elif "som-" in input.lower():
+        return os.getenv('SLACK_WEBHOOK_SOM')
+    elif "umbra" in input.lower():
+        return os.getenv('SLACK_WEBHOOK_UMBRA')
+    elif "forza" in input.lower() or "steel" in input.lower() or "motorsport" in input.lower():
+        return os.getenv('SLACK_WEBHOOK_FORZA')
+    elif "camn-" in input.lower():
+        return os.getenv('SLACK_WEBHOOK_CAMN')
+    elif "jaws" in input.lower():
+        return os.getenv('SLACK_WEBHOOK_JAWS')
+    elif "prm-" in input.lower():
+        return os.getenv('SLACK_WEBHOOK_PRM')
+    elif "kf3-" in input.lower():
+        return os.getenv('SLACK_WEBHOOK_KF3')
+    else:
+        return os.getenv("SLACK_WEBHOOK")
 
 def logging_handler(event):
     logger = logging.getLogger()
