@@ -4,16 +4,14 @@ import os
 import logging
 
 def lambda_handler(event, context):
-    #whurl = os.getenv('SLACK_WEBHOOK') 
-    #or
     #os.environ['SLACK_WEBHOOK']
     logging_handler(event)
 
     whurl = match_webhook(event["project"]["name"])
     #message = {"text": f"{event}"} #uncomment to output entire event to slack
-    message = {"text": f"The approval status of \"{event['item_name'].upper()}\" in \"{event['review']['name'].upper()}\" has changed to \"{event['new_status'].capitalize()}\""}
+    message = {"text": f"---------------------------------------------------\n** STATUS CHANGE NOTIFICATION ** \nProject Name: \"{event['project']['name']}\" \nItem Name: \"{event['item_name'].upper()}\" \nReview Name: \"{event['review']['name'].upper()}\" \nNew Status: \"{event['new_status'].capitalize()}\""}
     if event["new_status"] == "":
-        message = {"text": f"The approval status of \"{event['item_name'].upper()}\" in \"{event['review']['name'].upper()}\" has changed to \"NO STATUS\""}
+        message = {"text": f"---------------------------------------------------\n** STATUS CHANGE NOTIFICATION ** \nProject Name: {event['project']['name']} \nItem Name: \"{event['item_name'].upper()}\" \nReview Name: \"{event['review']['name'].upper()}\" \nNew Status: \"NO STATUS\""}
 
     send_webhook(whurl, message)
 
@@ -64,8 +62,8 @@ def match_webhook(input):
         return os.getenv('SLACK_WEBHOOK_KF3')
     elif "fn" in input.lower() or "fort" in input.lower():
         return os.getenv('SLACK_WEBHOOK_FN')
-    elif "gfsh" in input.lower():
-        return os.getenv('SLACK_WEBHOOK_GFSH')
+    #elif "gfsh" in input.lower():
+        #return os.getenv('SLACK_WEBHOOK_GFSH')
     else:
         return os.getenv("SLACK_WEBHOOK")
 
