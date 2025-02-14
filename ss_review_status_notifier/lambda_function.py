@@ -62,6 +62,10 @@ def match_webhook(input):
         return os.getenv('SLACK_WEBHOOK_PRM')
     elif "kf3-" in input.lower():
         return os.getenv('SLACK_WEBHOOK_KF3')
+    elif "fn" in input.lower() or "fort" in input.lower():
+        return os.getenv('SLACK_WEBHOOK_FN')
+    elif "gfsh" in input.lower():
+        return os.getenv('SLACK_WEBHOOK_GFSH')
     else:
         return os.getenv("SLACK_WEBHOOK")
 
