@@ -1,0 +1,23 @@
+{
+    "account": {
+      "name": "Slack-Relay Demo Account",
+      "id": 100
+    },
+    "item_name": "Uploaded Movie.mp4",
+    "review": {
+      "name": "Opening Credits Review",
+      "id": 123
+    },
+    "item_creator": {
+      "id": 1,
+      "name": "Mike Jennings",
+      "email": "jennings@example.com"
+    },
+    "new_status": "approved",
+    "project": {
+      "name": "Our Amazing Movie Project",
+      "id": 101
+    },
+    "item_id": 4056789,
+    "old_status": "wip"
+  }

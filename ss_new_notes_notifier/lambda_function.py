@@ -1,11 +1,14 @@
 import json
 import urllib3
 import os
+import logging
 
 def lambda_handler(event, context):
-    # FOUND IN .ENV
-    whurl = "SLACK_WEBHOOK"
-    message = {"text": ""}
+    logging_handler(event)
+    whurl = os.environ['SLACK_WEBHOOK']
+    #whurl = match_webhook(event["project"]["name"])
+    #message = {"text": f"{event}"} #uncomment to output entire event to slack, may bog down speeds
+    message = {"text": f"New Notes: {event['item_info'][0]['comments'][0]['text']}"}
     send_webhook(whurl, message)
 
     #AKA reverse api
@@ -33,4 +36,35 @@ def send_webhook(webhook_url, payload):
         # Log the error if the request fails
         return {"statusCode": 500, "body": f"Error: {str(e)}"}
 
+#Channel webhook selection
+def match_webhook(input):
+    if "mtg -" in input.lower():
+        return os.getenv('SLACK_WEBHOOK_MTG')
+    elif "lor-" in input.lower():
+        return os.getenv('SLACK_WEBHOOK_LOR')
+    elif "som-" in input.lower():
+        return os.getenv('SLACK_WEBHOOK_SOM')
+    elif "umbra" in input.lower():
+        return os.getenv('SLACK_WEBHOOK_UMBRA')
+    elif "forza" in input.lower() or "steel" in input.lower() or "motorsport" in input.lower():
+        return os.getenv('SLACK_WEBHOOK_FORZA')
+    elif "camn-" in input.lower():
+        return os.getenv('SLACK_WEBHOOK_CAMN')
+    elif "jaws" in input.lower():
+        return os.getenv('SLACK_WEBHOOK_JAWS')
+    elif "prm-" in input.lower():
+        return os.getenv('SLACK_WEBHOOK_PRM')
+    elif "kf3-" in input.lower():
+        return os.getenv('SLACK_WEBHOOK_KF3')
+    elif "fn" in input.lower() or "fort" in input.lower():
+        return os.getenv('SLACK_WEBHOOK_FN')
+    #elif "gfsh" in input.lower():
+        #return os.getenv('SLACK_WEBHOOK_GFSH')
+    else:
+        return os.getenv("SLACK_WEBHOOK")
 
+def logging_handler(event):
+    logger = logging.getLogger()
+    logger.setLevel("INFO")
+    logger.info(event)     
+           
