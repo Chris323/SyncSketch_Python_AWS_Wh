@@ -8,11 +8,19 @@ def lambda_handler(event, context):
     logging_handler(event)
 
     whurl = match_webhook(event["project"]["name"])
-    #message = {"text": f"{event}"} #uncomment to output entire event to slack
-    message = {"text": f"---------------------------------------------------\n** STATUS CHANGE NOTIFICATION ** \nProject Name: \"{event['project']['name']}\" \nItem Name: \"{event['item_name'].upper()}\" \nReview Name: \"{event['review']['name'].upper()}\" \nNew Status: \"{event['new_status'].capitalize()}\""}
+    message = {"text": "---------------------------------------------------\n"+
+                "** STATUS CHANGE NOTIFICATION ** \n"+
+                f"Project Name: \"{event['project']['name']}\" \n"+
+                f"Item Name: \"{event['item_name'].upper()}\" \n"+
+                f"Review Name: \"{event['review']['name'].upper()}\" \n"+
+                f"New Status: \"{event['new_status'].capitalize()}\""}
     if event["new_status"] == "":
-        message = {"text": f"---------------------------------------------------\n** STATUS CHANGE NOTIFICATION ** \nProject Name: {event['project']['name']} \nItem Name: \"{event['item_name'].upper()}\" \nReview Name: \"{event['review']['name'].upper()}\" \nNew Status: \"NO STATUS\""}
-
+        message = {"text": "---------------------------------------------------\n"+
+                    "** STATUS CHANGE NOTIFICATION ** \n"+
+                    f"Project Name: \"{event['project']['name']}\" \n"+
+                    f"Item Name: \"{event['item_name'].upper()}\" \n"+
+                    f"Review Name: \"{event['review']['name'].upper()}\" \n"+
+                    "New Status: \"NO STATUS\""}
     send_webhook(whurl, message)
 
     #AKA reverse api
