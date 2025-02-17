@@ -5,7 +5,7 @@ import logging
 
 def lambda_handler(event, context):
     logging_handler(event)
-    whurl = os.environ['SLACK_WEBHOOK']
+    whurl = os.environ['SLACK_WEBHOOK_TESTING'] #for testing channel output
     #whurl = match_webhook(event["project"]["name"])
     #message = {"text": f"{event}"} #uncomment to output entire event to slack, may bog down speeds
     message = {"text": f"New Notes: {event['item_info'][0]['comments'][0]['text']}"}
