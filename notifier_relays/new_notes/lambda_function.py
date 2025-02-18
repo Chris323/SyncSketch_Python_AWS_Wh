@@ -8,7 +8,13 @@ def lambda_handler(event, context):
     whurl = os.environ['SLACK_WEBHOOK_TESTING'] #for testing channel output
     #whurl = match_webhook(event["project"]["name"])
     #message = {"text": f"{event}"} #uncomment to output entire event to slack, may bog down speeds
-    message = {"text": f"New Notes: {event['item_info'][0]['comments'][0]['text']}"}
+    #message = {"text": f"New Notes: {event['item_info'][0]['comments'][0]['text']}"}
+    message = {"text": "---------------------------------------------------\n"+
+                "** NEW NOTES NOTIFICATION ** \n"+
+                f"Project Name: \"{event['project']['name']}\" \n"+
+                f"Item Name: \"{event['item_info'][0]['name'].upper()}\" \n"+
+                f"Review Name: \"{event['review']['name'].upper()}\" \n"+
+                f"New Notes By: \"{event['item_info'][0]['comments'][0]['creator']['full_name']}\""}
     send_webhook(whurl, message)
 
     #AKA reverse api
