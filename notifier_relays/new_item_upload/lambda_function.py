@@ -9,9 +9,9 @@ def lambda_handler(event, context):
     #whurl = match_webhook(event["project"]["name"])
     #message = {"text": f"{event}"} #uncomment to output entire event to slack, may bog down speeds
     message = {"text": "---------------------------------------------------\n"+
-                "** NEW NOTES NOTIFICATION ** \n"+
+                "** NEW ITEM UPLOAD NOTIFICATION ** \n"+
                 f"Project Name: \"{event['project']['name']}\" \n"+
-                f"Item Name: \"{event['item_name'].upper()}\" \n"+
+                f"NEW Item Name: \"{event['item_name'].upper()}\" \n"+
                 f"Review Name: \"{event['review']['name'].upper()}\" \n"+
                 f"Uploaded By: \"{event['user']['username']}\""}
     send_webhook(whurl, message)
