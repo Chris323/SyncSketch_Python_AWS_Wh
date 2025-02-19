@@ -1,23 +1,21 @@
 {
-    "account": {
-      "name": "Slack-Relay Demo Account",
-      "id": 100
-    },
-    "item_name": "Uploaded Movie.mp4",
-    "review": {
-      "name": "Opening Credits Review",
-      "id": 123
-    },
-    "item_creator": {
-      "id": 1,
-      "name": "Mike Jennings",
-      "email": "jennings@example.com"
-    },
-    "new_status": "approved",
-    "project": {
-      "name": "Our Amazing Movie Project",
-      "id": 101
-    },
-    "item_id": 4056789,
-    "old_status": "wip"
-  }
+  "item_id":32400596,
+  "item_name":"RLGOTY_230220_JS1_15_Car_Hits_Ball_Wide_PanLeft_65FOV_HalfSpd.mov",
+  "account":{
+     "id":553316765,
+     "name":"Hammer Creative"
+  },
+  "review":{
+     "id":4080321,
+     "name":"pizza rat internal"
+  },
+  "project":{
+     "id":424058,
+     "name":"IT_TEST"
+  },
+  "user":{
+     "username":"it-15",
+     "email":"it@hammercreative.com"
+  },
+  "action": "item_uploaded"
+}
